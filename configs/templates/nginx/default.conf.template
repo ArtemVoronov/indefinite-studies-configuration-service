@@ -1,0 +1,12 @@
+server {
+    listen       80;
+    listen  [::]:80;
+    server_name  localhost;
+
+    location ~* ^/api/v[1-9]/users {
+        proxy_pass http://${HOST_PROFILES_SERIVCE}:${PORT_PROFILES_SERIVCE};
+    }
+    location ~* ^/api/v[1-9]/auth {
+        proxy_pass http://${HOST_AUTH_SERIVCE}:${PORT_AUTH_SERIVCE};
+    }
+}

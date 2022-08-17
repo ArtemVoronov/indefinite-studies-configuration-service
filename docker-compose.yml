@@ -1,9 +1,16 @@
 version: "3.9"
 services:
   nginx:
-    build: ./nginx/
+    image: nginx
+    volumes:
+    - ./configs/templates/nginx:/etc/nginx/templates
     ports:
-      - "80:80"
+    - "80:80"
+    environment:
+    - HOST_PROFILES_SERIVCE=${HOST_PROFILES_SERIVCE}
+    - PORT_PROFILES_SERIVCE=${PORT_PROFILES_SERIVCE}
+    - HOST_AUTH_SERIVCE=${HOST_AUTH_SERIVCE}
+    - PORT_AUTH_SERIVCE=${PORT_AUTH_SERIVCE}
 networks:
   default:
     name: indefinite-studies-config-service-network
