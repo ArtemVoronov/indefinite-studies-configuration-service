@@ -11,6 +11,8 @@ services:
     - PORT_PROFILES_SERIVCE=${PORT_PROFILES_SERIVCE}
     - HOST_AUTH_SERIVCE=${HOST_AUTH_SERIVCE}
     - PORT_AUTH_SERIVCE=${PORT_AUTH_SERIVCE}
+    - HOST_AUTH_SERIVCE=${HOST_POSTS_SERIVCE}
+    - PORT_POSTS_SERIVCE=${PORT_POSTS_SERIVCE}
 networks:
   default:
     name: indefinite-studies-config-service-network

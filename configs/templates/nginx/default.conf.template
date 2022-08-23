@@ -9,4 +9,7 @@ server {
     location ~* ^/api/v[1-9]/auth {
         proxy_pass http://${HOST_AUTH_SERIVCE}:${PORT_AUTH_SERIVCE};
     }
+    location ~* ^/api/v[1-9]/posts {
+        proxy_pass http://${HOST_POSTS_SERIVCE}:${PORT_POSTS_SERIVCE};
+    }
 }
