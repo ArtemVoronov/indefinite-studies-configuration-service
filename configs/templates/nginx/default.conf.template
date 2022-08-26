@@ -3,6 +3,13 @@ server {
     listen  [::]:80;
     server_name  localhost;
 
+    # Fixing the Next JS Websocket Connect To Webpack HMR Failed Error
+    proxy_set_header Upgrade $http_upgrade; 
+    proxy_set_header Connection "upgrade";
+    
+    location / {
+        proxy_pass   http://${HOST_WEB_UI}:${PORT_WEB_UI};
+    }
     location ~* ^/api/v[1-9]/auth {
         proxy_pass http://${HOST_AUTH_SERIVCE}:${PORT_AUTH_SERIVCE};
     }
