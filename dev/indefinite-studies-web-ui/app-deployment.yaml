@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indefinite-studies-web-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indefinite-studies-web-ui
+  template:
+    metadata:
+      labels:
+        app: indefinite-studies-web-ui
+    spec:
+      containers:
+        - name: indefinite-studies-web-ui
+          image: indefinite-studies-web-ui:0.01
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 3000

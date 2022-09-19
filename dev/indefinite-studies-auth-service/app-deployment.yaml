@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indefinite-studies-auth-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indefinite-studies-auth-service
+  template:
+    metadata:
+      labels:
+        app: indefinite-studies-auth-service
+    spec:
+      containers:
+        - name: indefinite-studies-auth-service
+          image: indefinite-studies-auth-service:0.01
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 3005
+              name: rest-port
+            - containerPort: 50051
+              name: grpc-port
+      initContainers:
+        - name: indefinite-studies-auth-service-liquibase
+          image: indefinite-studies-auth-service-liquibase:0.01
+          env:
+          - name: DATABASE_USER
+            value: "indefinite_studies_auth_service_user"
+          - name: DATABASE_PASSWORD
+            value: "password"
+          - name: DATABASE_URL
+            value: "jdbc:postgresql://indefinite-studies-auth-service-postgres:5432/indefinite_studies_auth_service_db"

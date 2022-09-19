@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indefinite-studies-feed-builder-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indefinite-studies-feed-builder-service
+  template:
+    metadata:
+      labels:
+        app: indefinite-studies-feed-builder-service
+    spec:
+      containers:
+        - name: indefinite-studies-feed-builder-service
+          image: indefinite-studies-feed-builder-service:0.01
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 3005
+              name: rest-port
+            - containerPort: 50051
+              name: grpc-port

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: indefinite-studies-posts-service
+  labels:
+    app: indefinite-studies-posts-service
+spec:
+  type: NodePort
+  ports:
+    - name: rest
+      port: 3005
+    - name: grpc
+      port: 50051
+  selector:
+    app: indefinite-studies-posts-service

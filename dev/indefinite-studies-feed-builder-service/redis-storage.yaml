@@ -1,0 +1,29 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: indefinite-studies-feed-builder-service-redis-pv-volume
+  labels:
+    type: local
+    app: indefinite-studies-feed-builder-service-redis
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data/volume/feed_builder_redis_db"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: indefinite-studies-feed-builder-service-redis-pv-claim
+  labels:
+    app: indefinite-studies-feed-builder-service-redis
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
