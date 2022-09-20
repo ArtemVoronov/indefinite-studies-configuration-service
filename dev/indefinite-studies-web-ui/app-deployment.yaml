@@ -18,3 +18,6 @@ spec:
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 3000
+          env:
+          - name: APP_PORT
+            value: "3000"
