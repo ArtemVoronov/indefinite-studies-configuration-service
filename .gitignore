@@ -5,5 +5,8 @@ build
 config/*
 !migrations
 .env*
+!.env.dev.dockercompose
 coverage.out
-configs/tls
+!configs/tls/*.cnf
+configs/tls/*.pem
+configs/tls/*.srl
