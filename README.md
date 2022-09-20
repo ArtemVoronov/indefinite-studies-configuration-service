@@ -1,6 +1,6 @@
 # How to build and run
  - For docker-compose create appropriate `.env` file at the root of project, e.g [.env.dev.dockercompose](https://github.com/ArtemVoronov/indefinite-studies-configruation-service/blob/main/.env.dev.dockercompose) and then `docker-compose up`
- - for k8s go to the section `Create k8s cluster`
+ - for k8s go to the section [Create k8s cluster`](https://github.com/ArtemVoronov/indefinite-studies-configuration-service#create-k8s-cluster)`
 
 
 # Creating self signed certs
