@@ -6,6 +6,7 @@ config/*
 !migrations
 .env*
 !.env.dev.dockercompose
+!.env.dev.kube
 coverage.out
 !configs/tls/*.cnf
 configs/tls/*.pem
