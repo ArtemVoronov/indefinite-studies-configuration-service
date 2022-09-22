@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kib-manual
+  name: es-manual
   labels:
-    app: kib-manual
+    app: es-manual
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kib-manual
+      app: es-manual
   template:
     metadata:
       labels:
-        app: kib-manual
+        app: es-manual
     spec:
       containers:
-        - name: kibana
-          image: kibana:7.8.0
+        - name: elasticsearch
+          image: elasticsearch:7.8.0
           imagePullPolicy: IfNotPresent
           env:
-            - name: ELASTICSEARCH_HOSTS
-              value: http://192.168.49.2:30968
+            - name: discovery.type
+              value: single-node

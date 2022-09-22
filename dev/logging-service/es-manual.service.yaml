@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: log-manual
+  name: es-manual
   labels:
-    app: log-manual
+    app: es-manual
 spec:
   type: NodePort
   ports:
-    - port: 5044
+    - port: 9200
   selector:
-    name: log-manual
+    app: es-manual
