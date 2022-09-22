@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-09-22T02:39:12Z"
+  name: log-manual
+  namespace: default
+  resourceVersion: "18827"
+  uid: 641753a7-a1cc-4823-8737-c115d01deb2f
+spec:
+  clusterIP: 10.107.177.142
+  clusterIPs:
+  - 10.107.177.142
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 32028
+    port: 5044
+    protocol: TCP
+    targetPort: 5044
+  selector:
+    name: log-manual
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

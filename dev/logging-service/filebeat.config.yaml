@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  filebeat.yaml: "filebeat.inputs:\n - type: log\n   paths:\n    - /tmp/output.log\n
+    \noutput:\n  logstash:\n    hosts: [ \"192.168.49.2:32028\" ]"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2022-09-22T02:41:52Z"
+  name: beat-manual-config
+  namespace: default
+  resourceVersion: "18963"
+  uid: 5a3a95d9-7390-47dd-abff-92b89673560e

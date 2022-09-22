@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-09-22T02:24:11Z"
+  labels:
+    app: kib-manual
+  name: kib-manual
+  namespace: default
+  resourceVersion: "18048"
+  uid: 31be3998-6a72-4460-9e0e-02a176fd8610
+spec:
+  clusterIP: 10.99.51.23
+  clusterIPs:
+  - 10.99.51.23
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30653
+    port: 5601
+    protocol: TCP
+    targetPort: 5601
+  selector:
+    app: kib-manual
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
