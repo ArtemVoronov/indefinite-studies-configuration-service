@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: log-manual-pipeline
-data:
-  logstash.conf: "input {\n  beats {\n    port => \"5044\"\n  }\n}\n \noutput {\n
-    \ elasticsearch {\n    hosts => [\"http://192.168.49.2:30968/\"]\n    index =>
-    \"%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}\"\n  }\n  stdout
-    {\n    codec => rubydebug\n  }\n}"

@@ -5,7 +5,7 @@
 
 # Creating self signed certs
 
-## 1. Go `configs/tls` dir and edit `server-ext.cnf` if needs
+## 1. Go to `configs/tls` dir and edit `server-ext.cnf` if needs
 
 ## 2. Generate CA's private key and self-signed certificate
 
