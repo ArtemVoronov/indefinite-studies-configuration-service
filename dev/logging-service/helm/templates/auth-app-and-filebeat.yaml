@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: indefinite-studies-auth-service
-          image: indefinite-studies-auth-service:0.02
+          image: indefinite-studies-auth-service:0.01
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 3005
@@ -40,7 +40,7 @@ spec:
             mountPath: /etc/filebeat/
       initContainers:
         - name: indefinite-studies-auth-service-liquibase
-          image: indefinite-studies-auth-service-liquibase:0.02
+          image: indefinite-studies-auth-service-liquibase:0.01
           env:
             - name: DATABASE_USER
               value: "indefinite_studies_auth_service_user"
