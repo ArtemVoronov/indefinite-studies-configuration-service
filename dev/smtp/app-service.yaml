@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: smtp4dev
+  labels:
+    app: smtp4dev
+spec:
+  type: NodePort
+  ports:
+    - port: 25
+  selector:
+    app: smtp4dev
