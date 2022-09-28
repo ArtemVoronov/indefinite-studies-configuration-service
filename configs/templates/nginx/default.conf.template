@@ -22,4 +22,7 @@ server {
     location ~* ^/api/v[1-9]/feed {
         proxy_pass http://${HOST_FEED_BUILDER_SERIVCE}:${PORT_FEED_BUILDER_SERIVCE};
     }
+    location ~* ^/api/v[1-9]/notifications {
+        proxy_pass http://${HOST_NOTIFICATIONS_SERIVCE}:${PORT_NOTIFICATIONS_SERIVCE};
+    }
 }
