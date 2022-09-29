@@ -25,4 +25,7 @@ server {
     location ~* ^/api/v[1-9]/notifications {
         proxy_pass http://${HOST_NOTIFICATIONS_SERIVCE}:${PORT_NOTIFICATIONS_SERIVCE};
     }
+    location ~* ^/api/v[1-9]/subscriptions {
+        proxy_pass http://${HOST_SUBSCRIPTIONS_SERIVCE}:${PORT_SUBSCRIPTIONS_SERIVCE};
+    }
 }
