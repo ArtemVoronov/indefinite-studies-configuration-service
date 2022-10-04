@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: smtp4dev
+  name: smtp-dev-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: smtp4dev
+      app: smtp-dev-server
   template:
     metadata:
       labels:
-        app: smtp4dev
+        app: smtp-dev-server
     spec:
       containers:
-        - name: smtp4dev
+        - name: smtp-dev-server
           image: bytemark/smtp
           ports:
             - containerPort: 25
