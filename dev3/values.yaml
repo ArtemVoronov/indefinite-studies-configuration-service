@@ -9,18 +9,6 @@ global:
     subscriptions: 0.01
     webui: 0.01
   ports:
-    # postgres: 5432
-    # redis: 6379
-    # rest: 3005
-    # grpc: 50051
-    # elasticsearch: 31996
-    # kibana: 31997
-    # logstash: 31998
-    # smtp: 25
-    # webui: 3000
-    # kafka: 29092
-    # zookeeper: 2181
-
     inner:
       rest: 3005
       grpc: 50051
@@ -33,6 +21,7 @@ global:
       elasticsearch: 9200
       kibana: 5601
       logstash: 5044
+      nginx: 80
     external:
       rest:
         auth: 30000
@@ -61,4 +50,5 @@ global:
       kibana: 31997
       logstash: 31998
       webui: 31999
+      nginx: 32000
      

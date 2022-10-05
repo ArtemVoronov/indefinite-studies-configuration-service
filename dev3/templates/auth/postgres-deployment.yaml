@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: indefinite-studies-auth-service-postgres
-          image: postgres:10.5
+          image: postgres:14.5
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: {{ .Values.global.ports.inner.postgres }}

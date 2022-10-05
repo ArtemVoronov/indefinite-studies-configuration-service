@@ -11,8 +11,8 @@ data:
     }
     http {
       server {
-        listen       80;
-        listen  [::]:80;
+        listen       {{ .Values.global.ports.inner.nginx }};
+        listen  [::]:{{ .Values.global.ports.inner.nginx }};
         server_name  localhost;
 
         # Fixing the Next JS Websocket Connect To Webpack HMR Failed Error
@@ -20,22 +20,22 @@ data:
         proxy_set_header Connection "upgrade";
         
         location ~* ^/api/v[1-9]/auth {
-            proxy_pass http://indefinite-studies-auth-service:3005;
+            proxy_pass http://indefinite-studies-auth-service:{{ .Values.global.ports.inner.rest }};
         }
         location ~* ^/api/v[1-9]/users {
-            proxy_pass http://indefinite-studies-profiles-service:3005;
+            proxy_pass http://indefinite-studies-profiles-service:{{ .Values.global.ports.inner.rest }};
         }
         location ~* ^/api/v[1-9]/posts {
-            proxy_pass http://indefinite-studies-posts-service:3005;
+            proxy_pass http://indefinite-studies-posts-service:{{ .Values.global.ports.inner.rest }};
         }
         location ~* ^/api/v[1-9]/feed {
-            proxy_pass http://indefinite-studies-feed-builder-service:3005;
+            proxy_pass http://indefinite-studies-feed-builder-service:{{ .Values.global.ports.inner.rest }};
         }   
         location ~* ^/api/v[1-9]/notifications {
-            proxy_pass http://indefinite-studies-notifications-service:3005;
+            proxy_pass http://indefinite-studies-notifications-service:{{ .Values.global.ports.inner.rest }};
         }   
         location ~* ^/api/v[1-9]/subscriptions {
-            proxy_pass http://indefinite-studies-subscriptions-service:3005;
+            proxy_pass http://indefinite-studies-subscriptions-service:{{ .Values.global.ports.inner.rest }};
         }      
       }
     }

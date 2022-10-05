@@ -5,6 +5,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 80
+    - nodePort: {{ .Values.global.ports.external.nginx }} 
+      port: {{ .Values.global.ports.inner.nginx }}
   selector:
     app: nginx 
