@@ -28,7 +28,7 @@ spec:
           image: elastic/filebeat:7.8.0
           env:
             - name: LOGSTASH_HOSTS
-              value: {{ .Values.global.hostIp }}:{{ .Values.global.ports.logstash }}
+              value: "{{ .Values.global.hostIp }}:{{ .Values.global.ports.logstash }}"
           args: [
             "-c", "/etc/filebeat/filebeat.yml",
             "-e"
@@ -47,7 +47,7 @@ spec:
             - name: DATABASE_PASSWORD
               value: "password"
             - name: DATABASE_URL
-              value: "jdbc:postgresql://indefinite-studies-posts-service-postgres:5432/indefinite_studies_posts_service_db"
+              value: "jdbc:postgresql://indefinite-studies-posts-service-postgres:{{ .Values.global.ports.postgres }}/indefinite_studies_posts_service_db"
       volumes:
         - name: log-output
           emptyDir: {}

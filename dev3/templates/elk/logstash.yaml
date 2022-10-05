@@ -22,7 +22,7 @@ spec:
               name: filebeat
           env:
             - name: ELASTICSEARCH_HOSTS
-              value: http://{{ .Values.global.hostIp }}:{{ .Values.global.ports.elasticsearch }}
+              value: "http://{{ .Values.global.hostIp }}:{{ .Values.global.ports.elasticsearch }}"
           volumeMounts:
             - name: log-auto-pipeline
               mountPath: /usr/share/logstash/pipeline/

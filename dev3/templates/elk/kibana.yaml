@@ -19,7 +19,7 @@ spec:
           image: kibana:7.8.0               
           env:
             - name: ELASTICSEARCH_HOSTS
-              value: http://{{ .Values.global.hostIp }}:{{ .Values.global.ports.elasticsearch }}
+              value: "http://{{ .Values.global.hostIp }}:{{ .Values.global.ports.elasticsearch }}"
           ports:
             - name: http
               containerPort: 5601
