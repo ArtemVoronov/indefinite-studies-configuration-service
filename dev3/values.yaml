@@ -1,0 +1,22 @@
+global:
+  hostIp: 127.0.0.1
+  version: 
+    auth: 0.01
+    profiles: 0.01
+    posts: 0.01
+    feed: 0.01
+    notifications: 0.01
+    subscriptions: 0.01
+    webui: 0.01
+  ports:
+    postgres: 5432
+    redis: 6379
+    rest: 3005
+    grpc: 50051
+    elasticsearch: 31996
+    kibana: 31997
+    logstash: 31998
+    smtp: 25
+    webui: 3000
+    kafka: 29092
+    zookeeper: 2181

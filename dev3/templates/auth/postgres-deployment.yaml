@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indefinite-studies-auth-service-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indefinite-studies-auth-service-postgres
+  template:
+    metadata:
+      labels:
+        app: indefinite-studies-auth-service-postgres
+    spec:
+      containers:
+        - name: indefinite-studies-auth-service-postgres
+          image: postgres:10.5
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: {{ .Values.global.ports.postgres }}
+          envFrom:
+            - configMapRef:
+                name: indefinite-studies-auth-service-postgres-config
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: indefinite-studies-auth-service-postgredb
+      volumes:
+        - name: indefinite-studies-auth-service-postgredb
+          persistentVolumeClaim:
+            claimName: indefinite-studies-auth-service-postgres-pv-claim

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indefinite-studies-subscriptions-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indefinite-studies-subscriptions-service
+  template:
+    metadata:
+      labels:
+        app: indefinite-studies-subscriptions-service
+    spec:
+      containers:
+        - name: indefinite-studies-subscriptions-service
+          image: indefinite-studies-subscriptions-service:{{ .Values.global.version.subscriptions }}
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: {{ .Values.global.ports.rest }}
+              name: rest-port
+            - containerPort: {{ .Values.global.ports.grpc }}
+              name: grpc-port     
+          volumeMounts:
+            - name: log-output
+              mountPath: /tmp/
+        - name: subscriptions-beat-auto
+          image: elastic/filebeat:7.8.0
+          env:
+            - name: LOGSTASH_HOSTS
+              value: {{ .Values.global.hostIp }}:{{ .Values.global.ports.logstash }}
+          args: [
+            "-c", "/etc/filebeat/filebeat.yml",
+            "-e"
+          ]
+          volumeMounts:
+          - name: log-output
+            mountPath: /tmp/
+          - name: subscriptions-beat-config
+            mountPath: /etc/filebeat/      
+      volumes:
+        - name: log-output
+          emptyDir: {}
+        - name: subscriptions-beat-config
+          configMap:
+            name: subscriptions-beat-config
+            items:
+              - key: filebeat.yml
+                path: filebeat.yml

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: indefinite-studies-feed-builder-service-redis
+  labels:
+    app: indefinite-studies-feed-builder-service-redis
+spec:
+  type: NodePort
+  ports:
+   - port: {{ .Values.global.ports.postgres }}
+  selector:
+    app: indefinite-studies-feed-builder-service-redis

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indefinite-studies-feed-builder-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indefinite-studies-feed-builder-service
+  template:
+    metadata:
+      labels:
+        app: indefinite-studies-feed-builder-service
+    spec:
+      containers:
+        - name: indefinite-studies-feed-builder-service
+          image: indefinite-studies-feed-builder-service:{{ .Values.global.version.feed }}
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: {{ .Values.global.ports.rest }}
+              name: rest-port
+            - containerPort: {{ .Values.global.ports.grpc }}
+              name: grpc-port     
+          volumeMounts:
+            - name: log-output
+              mountPath: /tmp/
+        - name: feed-builder-beat-auto
+          image: elastic/filebeat:7.8.0
+          env:
+            - name: LOGSTASH_HOSTS
+              value: {{ .Values.global.hostIp }}:{{ .Values.global.ports.logstash }}
+          args: [
+            "-c", "/etc/filebeat/filebeat.yml",
+            "-e"
+          ]
+          volumeMounts:
+          - name: log-output
+            mountPath: /tmp/
+          - name: feed-builder-beat-config
+            mountPath: /etc/filebeat/      
+      volumes:
+        - name: log-output
+          emptyDir: {}
+        - name: feed-builder-beat-config
+          configMap:
+            name: feed-builder-beat-config
+            items:
+              - key: filebeat.yml
+                path: filebeat.yml

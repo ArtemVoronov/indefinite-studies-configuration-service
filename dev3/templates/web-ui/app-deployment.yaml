@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indefinite-studies-web-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indefinite-studies-web-ui
+  template:
+    metadata:
+      labels:
+        app: indefinite-studies-web-ui
+    spec:
+      containers:
+        - name: indefinite-studies-web-ui
+          image: indefinite-studies-web-ui:{{ .Values.global.version.webui }}
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: {{ .Values.global.ports.webui }}
+          env:
+          - name: APP_PORT
+            value: {{ .Values.global.ports.webui }} 
+          volumeMounts:
+            - name: log-output
+              mountPath: /tmp/
+        - name: web-ui-beat-auto
+          image: elastic/filebeat:7.8.0
+          env:
+            - name: LOGSTASH_HOSTS
+              value: {{ .Values.global.hostIp }}:{{ .Values.global.ports.logstash }}
+          args: [
+            "-c", "/etc/filebeat/filebeat.yml",
+            "-e"
+          ]
+          volumeMounts:
+          - name: log-output
+            mountPath: /tmp/
+          - name: web-ui-beat-config
+            mountPath: /etc/filebeat/      
+      volumes:
+        - name: log-output
+          emptyDir: {}
+        - name: web-ui-beat-config
+          configMap:
+            name: web-ui-beat-config
+            items:
+              - key: filebeat.yml
+                path: filebeat.yml

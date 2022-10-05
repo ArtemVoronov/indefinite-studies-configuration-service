@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indefinite-studies-posts-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indefinite-studies-posts-service
+  template:
+    metadata:
+      labels:
+        app: indefinite-studies-posts-service
+    spec:
+      containers:
+        - name: indefinite-studies-posts-service
+          image: indefinite-studies-posts-service:{{ .Values.global.version.posts }}
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: {{ .Values.global.ports.rest }}
+              name: rest-port
+            - containerPort: {{ .Values.global.ports.grpc }}
+              name: grpc-port     
+          volumeMounts:
+            - name: log-output
+              mountPath: /tmp/
+        - name: posts-beat-auto
+          image: elastic/filebeat:7.8.0
+          env:
+            - name: LOGSTASH_HOSTS
+              value: {{ .Values.global.hostIp }}:{{ .Values.global.ports.logstash }}
+          args: [
+            "-c", "/etc/filebeat/filebeat.yml",
+            "-e"
+          ]
+          volumeMounts:
+          - name: log-output
+            mountPath: /tmp/
+          - name: posts-beat-config
+            mountPath: /etc/filebeat/
+      initContainers:
+        - name: indefinite-studies-posts-service-liquibase
+          image: indefinite-studies-posts-service-liquibase:{{ .Values.global.version.posts }}
+          env:
+            - name: DATABASE_USER
+              value: "indefinite_studies_posts_service_user"
+            - name: DATABASE_PASSWORD
+              value: "password"
+            - name: DATABASE_URL
+              value: "jdbc:postgresql://indefinite-studies-posts-service-postgres:5432/indefinite_studies_posts_service_db"
+      volumes:
+        - name: log-output
+          emptyDir: {}
+        - name: posts-beat-config
+          configMap:
+            name: posts-beat-config
+            items:
+              - key: filebeat.yml
+                path: filebeat.yml

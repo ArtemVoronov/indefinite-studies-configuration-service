@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indefinite-studies-posts-service-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indefinite-studies-posts-service-postgres
+  template:
+    metadata:
+      labels:
+        app: indefinite-studies-posts-service-postgres
+    spec:
+      containers:
+        - name: indefinite-studies-posts-service-postgres
+          image: postgres:10.5
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: {{ .Values.global.ports.postgres }}
+          envFrom:
+            - configMapRef:
+                name: indefinite-studies-posts-service-postgres-config
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: indefinite-studies-posts-service-postgredb
+      volumes:
+        - name: indefinite-studies-posts-service-postgredb
+          persistentVolumeClaim:
+            claimName: indefinite-studies-posts-service-postgres-pv-claim

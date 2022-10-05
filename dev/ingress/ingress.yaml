@@ -45,3 +45,17 @@ spec:
             name: indefinite-studies-feed-builder-service
             port:
               number: 3005
+      - path: /api/v[1-9]/notifications 
+        pathType: Prefix
+        backend:
+          service:
+            name: indefinite-studies-notifications-service
+            port:
+              number: 3005
+      - path: /api/v[1-9]/subscriptions 
+        pathType: Prefix
+        backend:
+          service:
+            name: indefinite-studies-subscriptions-service
+            port:
+              number: 3005
