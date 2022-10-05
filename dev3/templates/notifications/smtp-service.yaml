@@ -7,6 +7,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.global.ports.smtp }}
+    - nodePort: {{ .Values.global.ports.external.smtp }}
+      port: {{ .Values.global.ports.inner.smtp }}
   selector:
     app: smtp-dev-server

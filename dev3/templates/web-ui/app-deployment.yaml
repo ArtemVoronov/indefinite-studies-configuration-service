@@ -17,10 +17,10 @@ spec:
           image: indefinite-studies-web-ui:{{ .Values.global.version.webui }}
           imagePullPolicy: "IfNotPresent"
           ports:
-            - containerPort: {{ .Values.global.ports.webui }}
+            - containerPort: {{ .Values.global.ports.inner.webui }}
           env:
             - name: APP_PORT
-              value: "{{ .Values.global.ports.webui }}"
+              value: "{{ .Values.global.ports.inner.webui }}"
           volumeMounts:
             - name: log-output
               mountPath: /tmp/
@@ -28,7 +28,7 @@ spec:
           image: elastic/filebeat:7.8.0
           env:
             - name: LOGSTASH_HOSTS
-              value: "{{ .Values.global.hostIp }}:{{ .Values.global.ports.logstash }}"
+              value: "{{ .Values.global.hostIp }}:{{ .Values.global.ports.external.logstash }}"
           args: [
             "-c", "/etc/filebeat/filebeat.yml",
             "-e"

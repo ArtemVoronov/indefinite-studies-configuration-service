@@ -17,7 +17,7 @@ spec:
           image: redis:6.2-alpine
           imagePullPolicy: "IfNotPresent"
           ports:
-            - containerPort: {{ .Values.global.ports.redis }}
+            - containerPort: {{ .Values.global.ports.inner.redis }}
           volumeMounts:
             - mountPath: /var/lib/redisdb/data
               name: indefinite-studies-feed-builder-service-redisdb

@@ -7,6 +7,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-   - port: {{ .Values.global.ports.postgres }}
+    - nodePort: {{ .Values.global.ports.external.redis.feed }} 
+      port: {{ .Values.global.ports.inner.redis }}
   selector:
     app: indefinite-studies-feed-builder-service-redis

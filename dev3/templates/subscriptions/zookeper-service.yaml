@@ -7,6 +7,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.global.ports.zookeeper }}
+    - nodePort: {{ .Values.global.ports.external.zookeeper }}
+      port: {{ .Values.global.ports.inner.zookeeper }}
   selector:
     app: indefinite-studies-zookeeper

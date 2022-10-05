@@ -19,10 +19,10 @@ spec:
           image: kibana:7.8.0               
           env:
             - name: ELASTICSEARCH_HOSTS
-              value: "http://{{ .Values.global.hostIp }}:{{ .Values.global.ports.elasticsearch }}"
+              value: "http://{{ .Values.global.hostIp }}:{{ .Values.global.ports.external.elasticsearch }}"
           ports:
             - name: http
-              containerPort: 5601
+              containerPort: {{ .Values.global.ports.inner.kibana }}
 ---
 apiVersion: v1
 kind: Service
@@ -35,7 +35,7 @@ spec:
     name: kib-auto
   type: NodePort
   ports:
-    - nodePort: {{ .Values.global.ports.kibana }}
-      port: 5601
+    - nodePort: {{ .Values.global.ports.external.kibana }}
+      port: {{ .Values.global.ports.inner.kibana }}
       protocol: TCP
-      targetPort: 5601
+      targetPort: {{ .Values.global.ports.inner.kibana }}

@@ -9,14 +9,56 @@ global:
     subscriptions: 0.01
     webui: 0.01
   ports:
-    postgres: 5432
-    redis: 6379
-    rest: 3005
-    grpc: 50051
-    elasticsearch: 31996
-    kibana: 31997
-    logstash: 31998
-    smtp: 25
-    webui: 3000
-    kafka: 29092
-    zookeeper: 2181
+    # postgres: 5432
+    # redis: 6379
+    # rest: 3005
+    # grpc: 50051
+    # elasticsearch: 31996
+    # kibana: 31997
+    # logstash: 31998
+    # smtp: 25
+    # webui: 3000
+    # kafka: 29092
+    # zookeeper: 2181
+
+    inner:
+      rest: 3005
+      grpc: 50051
+      postgres: 5432
+      redis: 6379
+      smtp: 25
+      webui: 3000
+      kafka: 29092
+      zookeeper: 2181
+      elasticsearch: 9200
+      kibana: 5601
+      logstash: 5044
+    external:
+      rest:
+        auth: 30000
+        profiles: 30001
+        posts: 30002
+        feed: 30003
+        notifications: 30004
+        subscriptions: 30005
+      grpc:
+        auth: 30100
+        profiles: 30101
+        posts: 30102
+        feed: 30103
+        notifications: 30104
+        subscriptions: 30105
+      postgres:        
+        auth: 30200
+        profiles: 30201
+        posts: 30202
+      redis:
+        feed: 30300
+      kafka: 31993
+      zookeeper: 31994
+      smtp: 31995
+      elasticsearch: 31996
+      kibana: 31997
+      logstash: 31998
+      webui: 31999
+     

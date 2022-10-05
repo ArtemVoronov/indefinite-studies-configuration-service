@@ -17,7 +17,7 @@ spec:
           image: postgres:10.5
           imagePullPolicy: "IfNotPresent"
           ports:
-            - containerPort: {{ .Values.global.ports.postgres }}
+            - containerPort: {{ .Values.global.ports.inner.postgres }}
           envFrom:
             - configMapRef:
                 name: indefinite-studies-auth-service-postgres-config

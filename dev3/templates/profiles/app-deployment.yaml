@@ -17,9 +17,9 @@ spec:
           image: indefinite-studies-profiles-service:{{ .Values.global.version.profiles }}
           imagePullPolicy: "IfNotPresent"
           ports:
-            - containerPort: {{ .Values.global.ports.rest }}
+            - containerPort: {{ .Values.global.ports.inner.rest }}
               name: rest-port
-            - containerPort: {{ .Values.global.ports.grpc }}
+            - containerPort: {{ .Values.global.ports.inner.grpc }}
               name: grpc-port     
           volumeMounts:
             - name: log-output
@@ -28,7 +28,7 @@ spec:
           image: elastic/filebeat:7.8.0
           env:
             - name: LOGSTASH_HOSTS
-              value: "{{ .Values.global.hostIp }}:{{ .Values.global.ports.logstash }}"
+              value: "{{ .Values.global.hostIp }}:{{ .Values.global.ports.external.logstash }}"
           args: [
             "-c", "/etc/filebeat/filebeat.yml",
             "-e"
@@ -47,7 +47,7 @@ spec:
             - name: DATABASE_PASSWORD
               value: "password"
             - name: DATABASE_URL
-              value: "jdbc:postgresql://indefinite-studies-profiles-service-postgres:{{ .Values.global.ports.postgres }}/indefinite_studies_profiles_service_db"
+              value: "jdbc:postgresql://indefinite-studies-profiles-service-postgres:{{ .Values.global.ports.inner.postgres }}/indefinite_studies_profiles_service_db"
       volumes:
         - name: log-output
           emptyDir: {}

@@ -22,7 +22,7 @@ spec:
               value: "single-node"
           ports:
             - name: http
-              containerPort: 9200              
+              containerPort: {{ .Values.global.ports.inner.elasticsearch }}
 ---
 apiVersion: v1
 kind: Service
@@ -35,7 +35,7 @@ spec:
     name: es-auto
   type: NodePort
   ports:
-    - nodePort: {{ .Values.global.ports.elasticsearch }}
-      port: 9200
+    - nodePort: {{ .Values.global.ports.external.elasticsearch }}
+      port: {{ .Values.global.ports.inner.elasticsearch }}
       protocol: TCP
-      targetPort: 9200
+      targetPort: {{ .Values.global.ports.inner.elasticsearch }}
