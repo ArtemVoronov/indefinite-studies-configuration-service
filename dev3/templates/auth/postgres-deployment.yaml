@@ -22,7 +22,7 @@ spec:
             - configMapRef:
                 name: indefinite-studies-auth-service-postgres-config
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql/data_auth
               name: indefinite-studies-auth-service-postgredb
       volumes:
         - name: indefinite-studies-auth-service-postgredb

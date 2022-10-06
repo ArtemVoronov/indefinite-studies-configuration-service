@@ -22,7 +22,7 @@ spec:
             - configMapRef:
                 name: indefinite-studies-posts-service-postgres-config
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql/data_posts
               name: indefinite-studies-posts-service-postgredb
       volumes:
         - name: indefinite-studies-posts-service-postgredb

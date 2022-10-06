@@ -39,6 +39,17 @@ spec:
           - name: profiles-beat-config
             mountPath: /etc/filebeat/
       initContainers:
+        - name: wait-for-pg
+          image: busybox:latest
+          imagePullPolicy: IfNotPresent
+          command: ['sh', '-c', 'until nc -vz ${POD_NAME}.${POD_NAMESPACE} {{ .Values.global.ports.inner.postgres }}; do echo "Waiting for postgres..."; sleep 90; done;']
+          env:
+            - name: POD_NAME
+              value: indefinite-studies-profiles-service-postgres
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
         - name: indefinite-studies-profiles-service-liquibase
           image: indefinite-studies-profiles-service-liquibase:{{ .Values.global.version.profiles }}
           env:
