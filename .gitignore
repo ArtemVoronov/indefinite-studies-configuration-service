@@ -7,6 +7,7 @@ config/*
 .env*
 !.env.dev.dockercompose
 !.env.dev.kube
+!/dev3/.env.secrets
 coverage.out
 !configs/tls/*.cnf
 configs/tls/*.pem

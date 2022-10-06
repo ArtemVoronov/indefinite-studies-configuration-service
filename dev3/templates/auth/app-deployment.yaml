@@ -42,9 +42,9 @@ spec:
         - name: wait-for-pg
           image: busybox:latest
           imagePullPolicy: IfNotPresent
-          command: ['sh', '-c', 'until nc -vz ${POD_NAME}.${POD_NAMESPACE} {{ .Values.global.ports.inner.postgres }}; do echo "Waiting for postgres..."; sleep 90; done;']
+          command: ['sh', '-c', 'until nc -vz ${POD_NAME}.${POD_NAMESPACE} {{ .Values.global.ports.inner.postgres }}; do echo "Waiting for postgres..."; sleep 60; done;']
           env:
-            - name: POD_NAME
+            - name: POD_NAME              
               value: indefinite-studies-auth-service-postgres
             - name: POD_NAMESPACE
               valueFrom:
@@ -54,11 +54,25 @@ spec:
           image: indefinite-studies-auth-service-liquibase:{{ .Values.global.version.auth }}
           env:
             - name: DATABASE_USER
-              value: "indefinite_studies_auth_service_user"
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_USER_AUTH
+                  optional: false
             - name: DATABASE_PASSWORD
-              value: "password"
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_PASSWORD_AUTH
+                  optional: false
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_DB_AUTH
+                  optional: false
             - name: DATABASE_URL
-              value: "jdbc:postgresql://indefinite-studies-auth-service-postgres:{{ .Values.global.ports.inner.postgres }}/indefinite_studies_auth_service_db"
+              value: "jdbc:postgresql://indefinite-studies-auth-service-postgres:{{ .Values.global.ports.inner.postgres }}/$(DATABASE_NAME)"
       volumes:
         - name: log-output
           emptyDir: {}

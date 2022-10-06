@@ -18,9 +18,25 @@ spec:
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: {{ .Values.global.ports.inner.postgres }}
-          envFrom:
-            - configMapRef:
-                name: indefinite-studies-profiles-service-postgres-config
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_USER_PROFILES
+                  optional: false
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_PASSWORD_PROFILES
+                  optional: false
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_DB_PROFILES
+                  optional: false
           volumeMounts:
             - mountPath: /var/lib/postgresql/data_profiles
               name: indefinite-studies-profiles-service-postgredb
