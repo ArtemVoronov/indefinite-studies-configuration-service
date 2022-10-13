@@ -15,6 +15,10 @@ spec:
       containers:
         - name: indefinite-studies-auth-service-postgres
           image: postgres:14.5
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "sh", "-c", "/tmp/create-multiple-postgresql-databases.sh" ]
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: {{ .Values.global.ports.inner.postgres }}
@@ -37,10 +41,36 @@ spec:
                   name: dev-secrets
                   key: POSTGRES_DB_AUTH
                   optional: false
+            - name: POSTGRES_MULTIPLE_DATABASES
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_MULTIPLE_DB_AUTH
+                  optional: false
           volumeMounts:
             - mountPath: /var/lib/postgresql/data_auth
               name: indefinite-studies-auth-service-postgredb
+            - mountPath: /tmp/
+              name: postgres-config-output   
+      initContainers:
+        - name: copy-config 
+          image: postgres:14.5
+          command: [ "sh", "-c", "cp /usr/local/create-multiple-postgresql-databases.sh /tmp/create-multiple-postgresql-databases.sh" ]
+          volumeMounts:
+          - mountPath: /tmp/
+            name: postgres-config-output
+          - mountPath: /usr/local/
+            name: postgres-config-volume
       volumes:
         - name: indefinite-studies-auth-service-postgredb
           persistentVolumeClaim:
             claimName: indefinite-studies-auth-service-postgres-pv-claim
+        - name: postgres-config-output
+          emptyDir: {}
+        - name: postgres-config-volume
+          configMap:
+            name: indefinite-studies-auth-service-postgres-config
+            defaultMode: 0777
+            items:
+              - key: create-multiple-postgresql-databases.sh
+                path: create-multiple-postgresql-databases.sh

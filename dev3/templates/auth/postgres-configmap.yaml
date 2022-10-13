@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: indefinite-studies-posts-service-postgres-config
+  name: indefinite-studies-auth-service-postgres-config
 data:
   create-multiple-postgresql-databases.sh: |
 {{ .Files.Get "create-multiple-postgresql-databases.sh" | indent 4 }}

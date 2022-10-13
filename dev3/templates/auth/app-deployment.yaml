@@ -50,7 +50,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-        - name: indefinite-studies-auth-service-liquibase
+        - name: indefinite-studies-auth-service-liquibase-shard-1
           image: indefinite-studies-auth-service-liquibase:{{ .Values.global.version.auth }}
           env:
             - name: DATABASE_USER
@@ -72,7 +72,76 @@ spec:
                   key: POSTGRES_DB_AUTH
                   optional: false
             - name: DATABASE_URL
-              value: "jdbc:postgresql://indefinite-studies-auth-service-postgres:{{ .Values.global.ports.inner.postgres }}/$(DATABASE_NAME)"
+              value: "jdbc:postgresql://indefinite-studies-auth-service-postgres:{{ .Values.global.ports.inner.postgres }}/$(DATABASE_NAME)_1"
+        - name: indefinite-studies-auth-service-liquibase-shard-2
+          image: indefinite-studies-auth-service-liquibase:{{ .Values.global.version.auth }}
+          env:
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_USER_AUTH
+                  optional: false
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_PASSWORD_AUTH
+                  optional: false
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_DB_AUTH
+                  optional: false
+            - name: DATABASE_URL
+              value: "jdbc:postgresql://indefinite-studies-auth-service-postgres:{{ .Values.global.ports.inner.postgres }}/$(DATABASE_NAME)_2"
+        - name: indefinite-studies-auth-service-liquibase-shard-3
+          image: indefinite-studies-auth-service-liquibase:{{ .Values.global.version.auth }}
+          env:
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_USER_AUTH
+                  optional: false
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_PASSWORD_AUTH
+                  optional: false
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_DB_AUTH
+                  optional: false
+            - name: DATABASE_URL
+              value: "jdbc:postgresql://indefinite-studies-auth-service-postgres:{{ .Values.global.ports.inner.postgres }}/$(DATABASE_NAME)_3"
+        - name: indefinite-studies-auth-service-liquibase-shard-4
+          image: indefinite-studies-auth-service-liquibase:{{ .Values.global.version.auth }}
+          env:
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_USER_AUTH
+                  optional: false
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_PASSWORD_AUTH
+                  optional: false
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: dev-secrets
+                  key: POSTGRES_DB_AUTH
+                  optional: false
+            - name: DATABASE_URL
+              value: "jdbc:postgresql://indefinite-studies-auth-service-postgres:{{ .Values.global.ports.inner.postgres }}/$(DATABASE_NAME)_4"
       volumes:
         - name: log-output
           emptyDir: {}
