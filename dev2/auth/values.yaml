@@ -1,8 +1,0 @@
-global:
-  hostIp: 127.0.0.1
- 
-ports:
-  postgres: 5432
-  authrest: 3005
-  authgrpc: 50051
-  logstash: 31998
