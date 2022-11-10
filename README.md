@@ -81,6 +81,8 @@ minikube delete
 
 ## Aliases that used for projects loaded in some root dir
 
+TODO: add using pathToProjectsRoot from args
+
 ```bash
 alias drmi="docker rmi $(docker images --filter "dangling=true" -q --no-trunc)"
 
