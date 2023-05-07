@@ -5,6 +5,18 @@ dcleanup(){
     docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
 
+start() {
+    docker-compose up -d
+}
+
+down() {
+    docker-compose down
+}
+
+tail() {
+    docker-compose logs -f
+}
+
 indefclean() {
     version="${1:-0.01}"
     echo "version is ${version}"
@@ -149,15 +161,18 @@ indefcerts() {
 
 case "$1" in
   start)
-    indefbackdown
-    indefbackbuild
-    indefbackup
+    down
+    start
+    tail
     ;;
   stop)
-    indefbackdown
+    down
     ;;
   purge)
-    indefbackpurge
+    down
+    ;;
+  tail)
+    tail
     ;;
   update_certs)
     indefcerts
