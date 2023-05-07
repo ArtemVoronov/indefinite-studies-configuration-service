@@ -1,1 +1,1 @@
-subjectAltName=DNS:indefinite-studies-auth-service,DNS:indefinite-studies-profiles-service,DNS:indefinite-studies-posts-service,DNS:indefinite-studies-feed-builder-service,DNS:indefinite-studies-notifications-service,DNS:indefinite-studies-subscriptions-service,IP:192.168.0.18
+subjectAltName=DNS:indefinite-studies-auth-service,DNS:indefinite-studies-profiles-service,DNS:indefinite-studies-posts-service,DNS:indefinite-studies-feed-builder-service,DNS:indefinite-studies-notifications-service,DNS:indefinite-studies-subscriptions-service,DNS:ubuntu-21-10,IP:192.168.0.18
