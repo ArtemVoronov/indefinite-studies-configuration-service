@@ -35,9 +35,9 @@ openssl x509 -in server-cert.pem -noout -text
 
 1. docker-compose -f ~/projects/my/indefinite-studies/indefinite-studies-configuration-service up -d
 2. docker-compose -f ~/projects/my/indefinite-studies/indefinite-auth-service-configuration-service up -d
-3. docker-compose -f ~/projects/my/indefinite-studies/indefinite-auth-profiles-configuration-service up -d
-4. docker-compose -f ~/projects/my/indefinite-studies/indefinite-auth-posts-configuration-service up -d
-5. docker-compose -f ~/projects/my/indefinite-studies/indefinite-auth-feed-builder-configuration-service up -d
+3. docker-compose -f ~/projects/my/indefinite-studies/indefinite-profiles-service-configuration-service up -d
+4. docker-compose -f ~/projects/my/indefinite-studies/indefinite-posts-service-configuration-service up -d
+5. docker-compose -f ~/projects/my/indefinite-studies/indefinite-feed-builder-service-configuration-service up -d
 
 # Create k8s cluster
 
